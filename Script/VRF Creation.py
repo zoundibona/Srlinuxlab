@@ -65,7 +65,7 @@ for dev in devices :
     enter_candidate = "enter candidate"
     config_vrf = f"set /network-instance {vrf_name} type ip-vrf"
     
-    desc_vrf = f"set /network-instance {vrf_name} description {desc_vrf}"
+    congig_desc_vrf = f"set /network-instance {vrf_name} description {desc_vrf}"
 
     config_route_target_export = f"set /network-instance {vrf_name} protocols bgp-vpn bgp-instance 1 route-target export-rt target:{route_target}"
     config_route_target_import = f"set /network-instance {vrf_name} protocols bgp-vpn bgp-instance 1 route-target import-rt target:{route_target}"
@@ -73,7 +73,7 @@ for dev in devices :
 
     config_route_dis = f"set /network-instance {vrf_name}  {route_distinguisher}"
 
-    commands= ['enter candidate', config_vrf, desc_vrf,config_route_distinguisher, config_route_target_import,config_route_target_export]
+    commands= ['enter candidate', config_vrf, congig_desc_vrf,config_route_distinguisher, config_route_target_import,config_route_target_export]
 
     output = connection.send_config_set(commands)
     print(output)
