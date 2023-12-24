@@ -34,8 +34,8 @@ Path = "d:/Network Automation/yamlfile.yml"   #This is the path of the yaml file
 with open(Path, 'r') as stream:
     try:
         parsed_yaml=yaml.safe_load(stream)
-        devices= parsed_yaml["endpoints"]  # Retrieves the endpoints of the VRF from the Yaml file
-        vrf_name= parsed_yaml["vrf name"] # Retrieves the VRF Name from the Yaml file
+        devices= parsed_yaml["endpoints"]  # Retrieve the endpoints of the VRF from the Yaml file
+        vrf_name= parsed_yaml["vrf name"] # Retrieve the VRF Name from the Yaml file
         desc_vrf= parsed_yaml["description"] # Retrieve the VRF Description from the Yaml file
         route_distinguisher=parsed_yaml["route distinguisher"] # Retrieve the route distinguisher from the yaml
         route_target=parsed_yaml["route target"] # Retrieve the route target from the yaml
