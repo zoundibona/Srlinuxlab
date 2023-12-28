@@ -8,6 +8,6 @@ all:
     nokia_srlinux:
       hosts:
         clab-srl-srl1:
-          ansible_host: 172.20.20.2
-        clab-srl-srl2:
           ansible_host: 172.20.20.3
+        clab-srl-srl2:
+          ansible_host: 172.20.20.2
