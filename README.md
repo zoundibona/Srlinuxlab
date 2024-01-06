@@ -1,3 +1,5 @@
+## NETWORK AUTOMATION
+
 This script uses a Yaml file and convert into Python dictionnary 
 You can customize it based on your need.
 In this example, I used Nokia Srlinux with three routers
