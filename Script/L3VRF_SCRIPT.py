@@ -4,17 +4,12 @@ import yaml
 import sys
 
 
-
 Routers = {"R1": {"device_type": "nokia_srl", "host": "172.20.20.2", "username": "admin", "password": "NokiaSrl1!"},
-           "R2" : {"device_type": "nokia_srl", "host": "172.20.20.3", "username": "admin", "password": "NokiaSrl1!"},
-           "R3" : {"device_type": "nokia_srl", "host": "172.20.20.4", "username": "admin", "password": "NokiaSrl1!"}
+           "R2": {"device_type": "nokia_srl", "host": "172.20.20.3", "username": "admin", "password": "NokiaSrl1!"},
+           "R3": {"device_type": "nokia_srl", "host": "172.20.20.4", "username": "admin", "password": "NokiaSrl1!"}
            }            # Dictionnary of Routers 
 
          # Dictionnary of Routers 
-
-
-
-
 
 Default_folder = "d:/Network Automation/" 
 
@@ -29,18 +24,9 @@ with open(Path, 'r') as stream:
         desc_vrf= parsed_yaml["description"] # Retrieve the VRF Description from the Yaml file
         route_distinguisher=parsed_yaml["route distinguisher"] # Retrieve the route distinguisher from the yaml
         route_target=parsed_yaml["route target"] # Retrieve the route target from the yaml
-       
-       
-
-     
-
-
-     
+    
     except yaml.YAMLError as exc:
         print(exc)
-
-
-        
 
 for dev in devices :                           
     
@@ -52,30 +38,20 @@ for dev in devices :
       connection = ConnectHandler(**connection_router)
       connection.enable()
 
-
       print (f" --------------STARTING CONFIGURATION ON {dev} ---------------------------" )
        
       enter_candidate = "enter candidate"
       config_vrf = f"set /network-instance {vrf_name} type ip-vrf"
-    
       config_desc_vrf = f"set /network-instance {vrf_name} description {desc_vrf}"
-
       config_route_target_export = f"set /network-instance {vrf_name} protocols bgp-vpn bgp-instance 1 route-target export-rt target:{route_target}"
       config_route_target_import = f"set /network-instance {vrf_name} protocols bgp-vpn bgp-instance 1 route-target import-rt target:{route_target}"
       config_route_distinguisher = f"set /network-instance {vrf_name} protocols bgp-vpn bgp-instance 1 route-distinguisher rd {route_distinguisher}"
-
       config_route_dis = f"set /network-instance {vrf_name}  {route_distinguisher}"
-
       commands= ['enter candidate', config_vrf, config_desc_vrf,config_route_distinguisher, config_route_target_import,config_route_target_export]
-
       output = connection.send_config_set(commands)
       print(output)
 
-
-
       for intf in parsed_yaml["interfaces"][dev] :       # Search the interfaces from the Yaml file
-
-        
 
         port_id = intf["port id"]
         ip_address = intf["ip address"]
@@ -86,18 +62,13 @@ for dev in devices :
         config_desc = f"set /interface {port_id} description {description}" 
         config_ip = f"set /interface {port_id} subinterface 0 ipv4 address {ip_address}/{subnet_mask}"
         assign_ip_vrf = f" set /network-instance {vrf_name} interface {port_id} "
-
-        
         commands= ['enter candidate', config_id,config_desc, config_ip,assign_ip_vrf]
-
         output = connection.send_config_set(commands)
         print(output)
-
 
       print('Closing Connection')
       print (f" --------------END OF CONFIGURATION ON {dev} ---------------------------" )
       connection.disconnect()
-
 
     except netmiko.NetMikoTimeoutException as e :
      print ("error")
